@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:crud_app/models/product.dart';
-import 'package:crud_app/ui/screens/add_new_product_screen.dart';
-import 'package:crud_app/ui/widgets/product_item.dart';
+import 'package:ashek_batch8_assignment_13/models/product.dart';
+import 'package:ashek_batch8_assignment_13/ui/screens/add_new_product_screen.dart';
+import 'package:ashek_batch8_assignment_13/ui/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -60,7 +60,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
         onPressed: () {
           Navigator.pushNamed(context, AddNewProductScreen.name);
           _getProductList();
-          
         },
         child: const Icon(Icons.add),
       ),
@@ -90,7 +89,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           createdDate: p['CreatedDate'],
         );
         productList.add(product);
-      }      
+      }
       setState(() {});
     }
     _getProductListInProgress = false;

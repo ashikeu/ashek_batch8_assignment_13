@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:crud_app/models/product.dart';
+import 'package:ashek_batch8_assignment_13/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -23,7 +23,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
   final TextEditingController _imageTEController = TextEditingController();
   final TextEditingController _codeTEController = TextEditingController();
   bool _updateProductInProgress = false;
-  final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -130,9 +130,8 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
             ),
             child: ElevatedButton(
               onPressed: () {
-                if(_formKey.currentState!.validate())
-                {
-                _updateProduct();
+                if (_formKey.currentState!.validate()) {
+                  _updateProduct();
                 }
               },
               child: const Text('Update Product'),
@@ -170,7 +169,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Product has been updated!'),          
+          content: Text('Product has been updated!'),
         ),
       );
       Navigator.pop(context);

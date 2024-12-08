@@ -1,4 +1,4 @@
-import 'package:crud_app/app.dart';
+import 'package:ashek_batch8_assignment_13/app.dart';
 import 'package:flutter/material.dart';
 
 void main() {
