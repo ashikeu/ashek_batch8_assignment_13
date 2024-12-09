@@ -5,11 +5,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class ProductItem extends StatelessWidget {
+class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
 
   final Product product;
 
+  @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -20,7 +25,7 @@ class ProductItem extends StatelessWidget {
           //   height: 30, // Set the height of the leading image
           // ),
           CachedNetworkImage(
-        imageUrl: product.image ?? '',
+        imageUrl: widget.product.image ?? '',
         placeholder: (context, url) => const CircularProgressIndicator(),
         errorWidget: (context, url, error) => const Icon(
           Icons.error,
@@ -28,14 +33,14 @@ class ProductItem extends StatelessWidget {
         ),
         fit: BoxFit.cover,
       ),
-      title: Text(product.productName ?? 'Unknown'),
+      title: Text(widget.product.productName ?? 'Unknown'),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Product Code: ${product.productCode ?? 'Unknown'}'),
-          Text('Quantity: ${product.quantity ?? 'Unknown'}'),
-          Text('Price: ${product.unitPrice ?? 'Unknown'}'),
-          Text('Total Price: ${product.totalPrice ?? 'Unknown'}'),
+          Text('Product Code: ${widget.product.productCode ?? 'Unknown'}'),
+          Text('Quantity: ${widget.product.quantity ?? 'Unknown'}'),
+          Text('Price: ${widget.product.unitPrice ?? 'Unknown'}'),
+          Text('Total Price: ${widget.product.totalPrice ?? 'Unknown'}'),
         ],
       ),
       trailing: Wrap(
@@ -50,7 +55,7 @@ class ProductItem extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 UpdateProductScreen.name,
-                arguments: product,
+                arguments: widget.product,
               );
             },
             icon: const Icon(Icons.edit),
@@ -77,7 +82,7 @@ class ProductItem extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
-                deleteItem(product.id!); // Proceed with the deletion
+                deleteItem(widget.product.id!); // Proceed with the deletion
               },
               child: Text('Delete'),
             ),
@@ -93,7 +98,7 @@ class ProductItem extends StatelessWidget {
         'https://crud.teamrabbil.com/api/v1/DeleteProduct/${id}'; // Replace with your API URL
 
     try {
-      final response = await http.delete(
+      final response = await http.get(
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
@@ -101,14 +106,16 @@ class ProductItem extends StatelessWidget {
       );
 
       if (response.statusCode == 200) {
-        print('Item deleted successfully!');
-        // You can show a Snackbar or dialog to inform the user
-        // Or navigate back to the previous screen, etc.
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Item deleted successfully!')));
       } else {
-        print('Failed to delete item. Status code: ${response.statusCode}');
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+                'Failed to delete item. Status code: ${response.statusCode}')));
       }
     } catch (e) {
-      print('Error: $e');
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Error: $e')));
     }
   }
 }
