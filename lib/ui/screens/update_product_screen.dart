@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ashek_batch8_assignment_13/models/product.dart';
+import 'package:ashek_batch8_assignment_13/ui/widgets/custom_textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -56,72 +57,17 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
       key: _formKey,
       child: Column(
         children: [
-          TextFormField(
-            controller: _nameTEController,
-            decoration: const InputDecoration(
-                hintText: 'Name', labelText: 'Product name'),
-            validator: (String? value) {
-              if (value?.trim().isEmpty ?? true) {
-                return 'Enter product name';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _priceTEController,
-            decoration: const InputDecoration(
-                hintText: 'Price', labelText: 'Product Price'),
-            validator: (String? value) {
-              if (value?.trim().isEmpty ?? true) {
-                return 'Enter product price';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _totalPriceTEController,
-            decoration: const InputDecoration(
-                hintText: 'Total price', labelText: 'Product Total Price'),
-            validator: (String? value) {
-              if (value?.trim().isEmpty ?? true) {
-                return 'Enter product total price';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _quantityTEController,
-            decoration: const InputDecoration(
-                hintText: 'Quantity', labelText: 'Product Quantity'),
-            validator: (String? value) {
-              if (value?.trim().isEmpty ?? true) {
-                return 'Enter product quantity';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _codeTEController,
-            decoration: const InputDecoration(
-                hintText: 'Code', labelText: 'Product Code'),
-            validator: (String? value) {
-              if (value?.trim().isEmpty ?? true) {
-                return 'Enter product code';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _imageTEController,
-            decoration: const InputDecoration(
-                hintText: 'Image url', labelText: 'Product Image'),
-            validator: (String? value) {
-              if (value?.trim().isEmpty ?? true) {
-                return 'Enter product image url';
-              }
-              return null;
-            },
-          ),
+          CustomTextField(controller: _codeTEController,labelText:'Product Code' ,hintText:'Code' ,),
+          const SizedBox(height: 16),
+          CustomTextField(controller: _nameTEController,labelText:'Product Name' ,hintText:'Name' ,),
+          const SizedBox(height: 16),
+          CustomTextField(controller: _priceTEController,labelText:'Product Price' ,hintText:'Price' ,),
+          const SizedBox(height: 16),
+          CustomTextField(controller: _quantityTEController,labelText:'Product Quantity' ,hintText:'Quantity' ,),
+          const SizedBox(height: 16),
+          CustomTextField(controller: _totalPriceTEController,labelText:'Product Total price' ,hintText:'Total price' ,),
+          const SizedBox(height: 16),
+          CustomTextField(controller: _imageTEController,labelText:'Product Image' ,hintText:'Image url' ,),
           const SizedBox(height: 16),
           Visibility(
             visible: _updateProductInProgress == false,
